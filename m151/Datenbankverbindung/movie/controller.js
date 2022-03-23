@@ -1,4 +1,5 @@
-import {get, getAll, remove, save} from './model.js';
+import {get, remove, save} from './model-first.js';
+import {getAll} from './model.js';
 import {render} from './view.js';
 import {render as form} from './form.js';
 

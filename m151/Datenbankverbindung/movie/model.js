@@ -1,46 +1,39 @@
-let data = [{id: 1, title: "Avengers: Endgame", year: "2019"}, {
-    id: 2,
-    title: "Avengers: Infinity War",
-    year: "2018"
-}, {id: 3, title: "Captain America: The First Avenger", year: "2011"}, {
-    id: 3,
-    title: "Spider-Man: Far From Home",
-    year: "2019"
-},];
+import mysql from "mysql2/promise";
 
-function getNextId() {
-    return Math.max(...data.map((movie) => movie.id)) + 1;
+
+const connection = await mysql.createConnection({
+    host: "127.0.0.1",
+    port: "8000",
+    user: "root",
+    password: "hello",
+    database: "m151_Datenbankverbindung"
+});
+
+await connection.connect();
+
+export async function getAll() {
+    const query = 'SELECT * FROM Movies';
+    const [data] = await connection.query(query);
+    return data;
 }
 
-function insert(movie) {
-    movie.id = getNextId();
-    data.push(movie);
+async function insert(movie) {
+
 }
 
-function update(movie) {
-    movie.id = parseInt(movie.id, 10);
-    const index = data.findIndex((item) => item.id === movie.id);
-    data[index] = movie;
+async function update(movie) {
+
 }
 
-export function getAll() {
-    return Promise.resolve(data);
+export async function get(id) {
+
 }
 
-export function get(id) {
-    return Promise.resolve(data.find((movie) => movie.id === id));
-}
+export async function remove(id) {
 
-export function remove(id) {
-    data = data.filter((movie) => movie.id !== id);
-    return Promise.resolve();
 }
 
 export function save(movie) {
-    if (movie.id === "") {
-        insert(movie);
-    } else {
-        update(movie);
-    }
-    return Promise.resolve();
+
 }
+
