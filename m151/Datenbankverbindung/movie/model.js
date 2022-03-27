@@ -18,22 +18,34 @@ export async function getAll() {
 }
 
 async function insert(movie) {
-
+    const query = "INSERT INTO Movies (title, year) VALUES (?, ?)";
+    const [result] = await connection.query(query, [movie.title, movie.year]);
+    return {...movie, id: result.insertId};
 }
 
 async function update(movie) {
-
+    const query = "UPDATE Movies SET title = ?, year = ? WHERE id = ?";
+    await connection.query(query, [movie.title, movie.year, movie.id]);
+    return movie;
 }
 
 export async function get(id) {
-
+    const query = "SELECT * FROM Movies WHERE id = ?";
+    const [data] = await connection.query(query, [id]);
+    return data.pop();
 }
 
 export async function remove(id) {
-
+    const query = "DELETE FROM Movies WHERE id = ?";
+    await connection.query(query, [id]);
 }
 
 export function save(movie) {
-
+    if (movie.id === "") {
+        insert(movie);
+    } else {
+        update(movie);
+    }
+    return Promise.resolve();
 }
 
