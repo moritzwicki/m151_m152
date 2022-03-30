@@ -9,6 +9,7 @@ export function render(movies) {
    </head>
    <body> 
     <table>
+    <a href="/logout">abmelden</a>
       <thead><tr><th>Id</th><th>Title</th><th></th><th></th></tr></thead>  
       <tbody> 
         ${movies
